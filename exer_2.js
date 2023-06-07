@@ -1,6 +1,9 @@
-/*
-  Todos os atributos necessários. Assim, usando Try e Catch, trate os erros e apresente uma mensagem quando houve atributos vazios.
-*/
+class MeuErro extends Error {
+  constructor(message){
+    super(message);
+    this.name = "Meu Erro";
+  }
+}
 
 class Estudante {
   constructor(nome, idade, turma) {
@@ -9,40 +12,31 @@ class Estudante {
     this.turma = turma;
   }
 
-  mostrarAtributos(){
-    try{ 
-      return this.atributos()
-      } catch(error){
-       console.log(error.message)
-    
-    
-      }
-
-   
-  } 
-
-  atributos() {
-    if(this.nome != "" && this.idade != "" && this.turma != "" ){
-    return {
-      nome: this.nome,
-      idade: this.idade,
-      turma: this.turma
+  mostrarAtributos() {
+    try {
+      return this.atributos();
+    } catch (error) {
+      return error
     }
   }
 
-  else{
-    throw new Error ("Tem que colocar o nome , idade , turma")
-}
-
+  atributos() {
+    if (this.nome != ""){
+      return {
+        nome: this.nome,
+        idade: this.idade,
+        turma: this.turma
+      };
+    } else {
+      throw new MeuErro("Mensagem de erro");
+    }
   }
-
 }
 
-const estudante = new Estudante("João", 16, "3A");
+const estudante = new Estudante("", 16, "3A");
 
-const atributos = estudante.mostrarAtributos();
+console.log(estudante.mostrarAtributos());
 
-console.log(atributos.nome);   
+/*console.log(atributos.nome);   
 console.log(atributos.idade);  
-console.log(atributos.turma); 
-
+console.log(atributos.turma); */
